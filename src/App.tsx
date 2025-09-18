@@ -3,6 +3,7 @@ import { pdfjs } from "react-pdf";
 import type { PDFReaderState } from "./types/pdf-reader";
 import TopBar from "./components/top-bar";
 import PdfViewer from "./components/pdf-viewer";
+import QRScanner from "./components/QR-scanner/QR-scanner";
 
 // Set up PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -26,6 +27,7 @@ const PDFSlideshowReader: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<number | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     setIsTransitioning(true);
@@ -241,7 +243,7 @@ const PDFSlideshowReader: React.FC = () => {
       );
   }, []);
 
-
+  console.log(searchTerm);
   return (
     <div
       ref={containerRef}
@@ -249,6 +251,7 @@ const PDFSlideshowReader: React.FC = () => {
         state.isFullscreen ? "fixed inset-0 z-50 p-2" : "p-4"
       }`}
     >
+      <QRScanner setSearchTerm={setSearchTerm} />
       <TopBar
         state={state}
         handleDurationChange={handleDurationChange}
