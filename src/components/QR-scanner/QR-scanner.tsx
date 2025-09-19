@@ -90,41 +90,45 @@ export default function QRScanner({ setSearchTerm, onClose }: QRScannerProps) {
       {!active ? (
         <button
           onClick={handleOpenScanner}
-          className="btn btn-primary px-4 py-2 fs-6"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-medium transition-colors"
         >
           Scan Barcode / QR Code
         </button>
       ) : (
         <>
           {/* keep video responsive in 4:3 ratio */}
-          <div className="ratio ratio-4x3 w-100 mx-auto" style={{ maxWidth: 400 }}>
+          <div className="relative w-full max-w-md mx-auto aspect-[4/3]">
             <video
               ref={videoRef}
               muted
               autoPlay
               playsInline
-              className="w-100 h-100 rounded bg-dark"
+              className="w-full h-full rounded-lg bg-gray-800 object-cover"
             />
           </div>
           <button
             onClick={handleCloseScanner}
-            className="btn btn-outline-secondary mt-3 px-3 py-2"
+            className="bg-gray-600 hover:bg-gray-700 text-white mt-4 px-4 py-2 rounded-lg transition-colors"
           >
             Stop Scanner
           </button>
         </>
       )}
       {result && (
-        <div className="alert alert-success mt-4">
-          <strong>Scanned {scanType}:</strong>
-          <div className="mt-2 text-break">{result}</div>
+        <div className="bg-green-800 border border-green-600 rounded-lg p-4 mt-4">
+          <div className="text-green-200">
+            <strong>Scanned {scanType}:</strong>
+          </div>
+          <div className="mt-2 text-green-100 break-all">{result}</div>
         </div>
       )}
       {error && (
-        <div className="alert alert-danger mt-3">
-          <strong>Error:</strong> {error}
+        <div className="bg-red-800 border border-red-600 rounded-lg p-4 mt-3">
+          <div className="text-red-200">
+            <strong>Error:</strong> {error}
+          </div>
           {error.includes("NotAllowedError") && (
-            <div className="small mt-1">
+            <div className="text-sm mt-1 text-red-300">
               Please allow camera permissions.
             </div>
           )}
