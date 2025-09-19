@@ -142,7 +142,7 @@ const QRScannerPage: React.FC<QRScannerPageProps> = ({ onPDFScanned }) => {
       
       // For other URLs, try validation but don't fail on CORS errors
       try {
-        const response = await fetch(url, { method: 'HEAD', mode: 'no-cors' });
+        await fetch(url, { method: 'HEAD', mode: 'no-cors' });
         // With no-cors mode, we can't check response details, but we can detect network errors
       } catch (corsError) {
         // If it's a CORS error, that's actually good - it means the server exists
